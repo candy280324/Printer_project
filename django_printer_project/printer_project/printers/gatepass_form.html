@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gate‑Pass Printer</title>
+  <style>
+    body{font-family:sans-serif;max-width:520px;margin:2rem auto}
+    label{display:block;margin:.6rem 0 .2rem}
+    input,textarea{width:100%;padding:.4rem}
+    button{margin-top:1rem;padding:.5rem 1.5rem}
+    .msg{margin:1rem 0;color:green}
+    .err{color:red}
+  </style>
+</head>
+<body>
+  <h1>Gate‑Pass Entry</h1>
+  {% if status %}<div class="msg">{{ status }}</div>{% endif %}
+  {% if error %}<div class="msg err">{{ error }}</div>{% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">🖨 Print</button>
+  </form>
+</body>
+</html>

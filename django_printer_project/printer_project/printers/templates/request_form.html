@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print Receipt</title>
+</head>
+<body>
+    <h1>Print Receipt</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">🖨 Print</button>
+    </form>
+    {% if status %}
+        <p>{{ status }}</p>
+    {% endif %}
+</body>
+</html>

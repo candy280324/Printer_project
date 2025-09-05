@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner Input</title>
+</head>
+<body>
+    <h1>Scan QR Code</h1>
+
+    <!-- Input Box to show the scanned QR code -->
+    <input type="text" id="qr-code-result" placeholder="Scan QR code here..." autofocus />
+
+    <!-- Button to trigger the save process (optional) -->
+    <button onclick="sendQRToServer()">Save QR Code</button>
+
+    <script>
+        // Function to send the scanned QR code to the server (optional)
+        function sendQRToServer() {
+            const qrCode = document.getElementById('qr-code-result').value;
+
+            fetch('/save-qr-code/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ qr_code: qrCode }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('QR Code saved successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to save QR code.');
+            });
+        }
+
+        // Optional: To automatically trigger a scan (if you want to listen to input event)
+        document.getElementById('qr-code-result').addEventListener('input', function(event) {
+            const qrCodeValue = event.target.value;
+            console.log('Scanned QR Code:', qrCodeValue);
+        });
+    </script>
+</body>
+</html>
